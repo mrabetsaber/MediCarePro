@@ -53,16 +53,16 @@ export class LoginComponent implements OnInit {
           console.log("Response Received");
           sessionStorage.setItem('loggedUser', this.user.email);
           sessionStorage.setItem('USER', "user");
-          sessionStorage.setItem('ROLE', this.user.role);
-          sessionStorage.setItem('name', this.user.username);
-          sessionStorage.setItem('gender', this.user.gender);
-          if(this.user.role=="USER"){
+          sessionStorage.setItem('ROLE', data.role);
+          sessionStorage.setItem('name', data.username);
+          sessionStorage.setItem('gender', data.gender);
+          if(data.role=="USER"){
 
             this._router.navigate(['/userdashboard']);
-          }else if(this.user.role=="doctor"){
+          }else if(data.role=="doctor"){
 
             this._router.navigate(['/doctordashboard']);
-          }else if(this.user.role=="admin"){
+          }else if(data.role=="admin"){
             this._router.navigate(['/admindashboard']);
           }
         },

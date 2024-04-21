@@ -131,3 +131,11 @@ td {
 td {
   font-family: 'Roboto', 'Helvetica Neue', sans-serif; /* Use Roboto font or any other Material font */
 }
+.custom-green-button {
+    background-color: green;
+    color: white;
+}
+
+.custom-green-button:hover {
+    background-color: darkgreen;
+}

@@ -18,6 +18,7 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { NavbarModule } from 'src/app/shared/navbar/navbar.module';
 import { SidebarModule } from 'src/app/sidebar/sidebar.module';
+import { MatTableModule } from '@angular/material/table';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { SidebarModule } from 'src/app/sidebar/sidebar.module';
     LbdModule,
     SidebarModule,
     NavbarModule,
+    MatTableModule,
     NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=YOUR_KEY_HERE'})
   ],
   declarations: [

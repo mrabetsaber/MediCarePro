@@ -19,10 +19,10 @@ export const ROUTES: RouteInfo[] = [
 ];
 
 @Component({
-  selector: 'app-sidebar',
+  selector: 'app-sidebar1',
   templateUrl: './sidebar.component.html'
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent1 implements OnInit {
   menuItems: RouteInfo[] | undefined;
 
 

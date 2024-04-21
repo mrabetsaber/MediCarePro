@@ -1,3 +1,4 @@
+import { Patient } from 'src/app/models/patient';
 export class Appointment 
 {
     patientname : string = '';
@@ -12,6 +13,7 @@ export class Appointment
     slot : string = '';
     appointmentstatus : string = 'false';
     admissionstatus : string = 'false';
+    patient:Patient=new Patient();
 
     constructor() {}
 }

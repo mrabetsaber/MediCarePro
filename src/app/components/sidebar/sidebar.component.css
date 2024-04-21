@@ -7,6 +7,9 @@
   height: 100vh; /* Set height to 100vh */
   top: 0;
   left: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 1000; 
     }
     .hideMenu{
     
@@ -86,7 +89,7 @@
   }
   .container
   {
-    margin-left: 15%;
+    margin-left: 10%;
   }
   .dashboard-card
   {

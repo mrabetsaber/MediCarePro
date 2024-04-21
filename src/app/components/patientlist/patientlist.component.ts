@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Appointment } from '../../models/appointment';
-import { Doctor } from '../../models/doctor';
 import { Slots } from '../../models/slots';
+import { Patient } from 'src/app/models/patient';
+import { PatientServiceService } from 'src/app/services/patient-service.service';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { DoctorService } from '../../services/doctor.service';
-
 @Component({
   selector: 'app-patientlist',
   templateUrl: './patientlist.component.html',
@@ -14,11 +14,13 @@ export class PatientlistComponent implements OnInit {
 
   currRole = '';
   loggedUser = '';
-  patients : Observable<Appointment[]> | undefined;
+  patients : Observable<Patient[]> | undefined;
   slots : Observable<Slots[]> | undefined;
   responses : Observable<any> | undefined;
+  filterValue=new Patient();
+  constructor(private _service : PatientServiceService,private doctorService : DoctorService) { }
 
-  constructor(private _service : DoctorService) { }
+  displayedColumns: string[] = ['nom', 'prenom', 'region', 'numTel', 'dateNaissance', 'profession', 'couvertureSocial', 'gender'];
 
   ngOnInit(): void
   {
@@ -30,18 +32,18 @@ export class PatientlistComponent implements OnInit {
 
     if(this.currRole === "user")
     {
-      this.patients = this._service.getPatientListByDoctorEmail(this.loggedUser);
+      this.patients = this.doctorService.getPatientListByDoctorEmail(this.loggedUser);
     }
     else
     {
-      this.patients = this._service.getPatientList();
+      this.patients = this.doctorService.getPatientList();
     }
-    this.slots = this._service.getSlotDetails(this.loggedUser);
+    this.slots = this.doctorService.getSlotDetails(this.loggedUser);
   }
 
   acceptRequest(slot : string)
   {
-    this.responses = this._service.acceptRequestForPatientApproval(slot);
+    this.responses = this.doctorService.acceptRequestForPatientApproval(slot);
     $("#acceptbtn").hide();
     $("#rejectbtn").hide();
     $("#acceptedbtn").show();
@@ -50,12 +52,39 @@ export class PatientlistComponent implements OnInit {
 
   rejectRequest(slot : string)
   {
-    this.responses = this._service.rejectRequestForPatientApproval(slot);
+    this.responses = this.doctorService.rejectRequestForPatientApproval(slot);
     $("#acceptbtn").hide();
     $("#rejectbtn").hide();
     $("#acceptedbtn").hide();
     $("#rejectedbtn").show();
   }
 
-
+  fetchPatients(): void {
+    this.patients = this._service.searchPatients(this.filterValue);
+  }
+  clearForm(): void {
+    this.filterValue = {
+      id:'',
+      nom: '',
+      prenom: '',
+      region: '',
+      numTel: '',
+      dateNaissance:'',
+      profession: '',
+      couvertureSocial: '',
+      gender: '',
+      numDossier:'',
+      dateNaissanceFilter:''
+    };
+    this.fetchPatients(); // Optionally, you can reload the patient list after clearing the form
+  }
+  onDateChange(event: MatDatepickerInputEvent<Date>) {
+    console.log("event", event);
+    if (event.value !== null) {
+     // this.filterValue.dateNaissance = event.value.toString();
+    } else {
+      // Handle the case where the value is null
+    }
+  }
+  
 }

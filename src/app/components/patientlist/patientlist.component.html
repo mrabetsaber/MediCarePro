@@ -1,86 +1,116 @@
-<app-header></app-header>
-
 <div class="panel panel-primary">
-    <div class="panel-heading">
+  <div class="panel-heading">
       <h2 style="text-align: center; font-family: 'Oswald', sans-serif;color: darkgreen; margin-top: 3%; margin-bottom: 3%;"> Patient List </h2>
-    </div>
-    <div class="panel-body">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Idendity</th>
-            <th>Patient ID</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Slot</th>
-            <th>Date</th>
-            <th>Problem</th>
-            <th>Approval</th>
-            <th>Admission</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let patient of patients | async">
-            <td><img *ngIf="patient.gender === 'Male' || patient.gender === 'male'" class="bloodimg" [src]="'assets/img/maleuser.png'" width="80" height="80">
-              <img *ngIf="patient.gender === 'Female' || patient.gender === 'female'" class="bloodimg" [src]="'assets/img/femaleuser.png'" width="80" height="80">
-              </td>
-            <td>
-              <div class="date-cover">{{patient.patientid}}</div>
-            </td>
-            <td>{{patient.patientname}}</td>
-            <td>{{patient.age}} years</td>
-            <td>
-              <div *ngIf="loggedUser === 'admin@gmail.com'">
-                <div class="slotcover">{{patient.slot}}</div>
-              </div>
-                <div *ngFor="let slot of slots | async">
-                    <div *ngIf="patient.slot === 'AM slot' && slot.amstatus === 'booked' && patient.date === slot.date">
-                        <div class="slotcover">{{slot.amslot}}</div>
-                    </div>
-                    <div *ngIf="patient.slot === 'Noon slot' && slot.noonstatus === 'booked' && patient.date === slot.date">
-                        <div class="slotcover">{{slot.noonslot}}</div>
-                    </div>
-                    <div *ngIf="patient.slot === 'PM slot' && slot.pmstatus === 'booked' && patient.date === slot.date">
-                        <div class="slotcover">{{slot.pmslot}}</div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="date-cover">{{patient.date}}</div>
-            </td>
-            <td>{{patient.problem}}</td>
-            <td>
-               <div *ngIf="currRole === 'admin' || currRole === 'ADMIN'">
-                <div *ngIf="patient.appointmentstatus === 'accept'" class="accepted">Accepted</div>
-                <div *ngIf="patient.appointmentstatus === 'false'" class="pending">Pending</div>
-                <div *ngIf="patient.appointmentstatus === 'reject'" class="rejected">Rejected</div>
-              </div>
-                <div *ngIf="patient.appointmentstatus === 'false' && currRole === 'doctor' || currRole === 'DOCTOR'" >
-                    <button (click)="acceptRequest(patient.slot)" id="acceptbtn" value="patient.email" value="Accept" style="margin-bottom: 5px;" class="accepted">Accept</button><br>
-                    <button (click)="rejectRequest(patient.slot)" id="rejectbtn" value="patient.email" value="Reject" class="rejected">Reject</button>
-                    <div id="acceptedbtn" class="accepted" style="display: none;">Accepted</div>
-                    <div id="rejectedbtn" class="rejected" style="display: none;">Rejected</div>
-                  </div>
-                  <div *ngIf="patient.appointmentstatus === 'accept' && currRole === 'doctor' || currRole === 'DOCTOR'" >
-                    <div class="accepted">Accepted</div>
-                  </div>
-                  <div *ngIf="patient.appointmentstatus === 'reject' && currRole === 'doctor' || currRole === 'DOCTOR'" >
-                    <div class="rejected">Rejected</div>
-                  </div>
-                <div *ngFor="let details of responses | async"></div>
-            </td>
-            <td>
-                <div>
-                    <div *ngIf="patient.admissionstatus === 'accept'" class="accepted">Admitted</div>
-                    <div *ngIf="patient.admissionstatus === 'false'" class="pending">Pending</div>
-                    <div *ngIf="patient.admissionstatus === 'reject'" class="rejected">Not Admitted</div>
-                </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </div>
+  <div class="panel-body">
+    <form (ngSubmit)="fetchPatients()">
+      <div class="filter-form">
+          <div class="row">
+              <div class="col-md-4">
+                  <mat-form-field >
+                      <mat-label>Nom</mat-label>
+                      <input matInput [(ngModel)]="filterValue.nom" name="filterValue.nom" placeholder="Search by Nom">
+                  </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                  <mat-form-field >
+                      <mat-label>Prénom</mat-label>
+                      <input matInput [(ngModel)]="filterValue.prenom" name="filterValue.prenom" placeholder="Search by Prénom">
+                  </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                  <mat-form-field >
+                      <mat-label>Région</mat-label>
+                      <input matInput [(ngModel)]="filterValue.region" name="filterValue.region" placeholder="Search by Région">
+                  </mat-form-field>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-4">
+                  <mat-form-field >
+                      <mat-label>NumTel</mat-label>
+                      <input matInput [(ngModel)]="filterValue.numTel" name="filterValue.numTel" placeholder="Search by NumTel">
+                  </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+                  <mat-label>Date Naissance</mat-label>
+                  <input matInput [matDatepicker]="picker" readonly>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker (dateChange)="onDateChange($event)"></mat-datepicker>
+                </mat-form-field>
+                
+              </div>
+              <div class="col-md-4">
+                  <mat-form-field >
+                      <mat-label>Profession</mat-label>
+                      <input matInput [(ngModel)]="filterValue.profession" name="filterValue.profession" placeholder="Search by Profession">
+                  </mat-form-field>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-4">
+                  <mat-form-field >
+                      <mat-label>Couverture Social</mat-label>
+                      <input matInput [(ngModel)]="filterValue.couvertureSocial" name="filterValue.couvertureSocial" placeholder="Search by Couverture Social">
+                  </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                  <mat-form-field >
+                      <mat-label>Gender</mat-label>
+                      <mat-select [(ngModel)]="filterValue.gender" name="filterValue.gender" placeholder="Select Gender">
+                          <mat-option value="">Tous</mat-option>
+                          <mat-option value="male">Male</mat-option>
+                          <mat-option value="female">Female</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-sm-12">
+              <button type="submit" mat-raised-button color="primary" class="float-right">Rechercher</button>
+              <button type="button" mat-raised-button color="warn" class="float-right" (click)="clearForm()">Clear Form</button>
 
-<br><br><br><br><br><br><br><br>
-<app-footer></app-footer>
+          </div>
+      </div>
+  </form>
+  
+  
+      <br>
+      <h2 style="margin-top: 20px; margin-bottom: 10px;">Patient List</h2>
+      <hr style="margin: 20px 0;">
+
+      <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Region</th>
+                        <th>NumTel</th>
+                        <th>Date Naissance</th>
+                        <th>Profession</th>
+                        <th>Couverture Social</th>
+                        <th>Gender</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let patient of patients | async">
+                        <td>{{ patient.nom }}</td>
+                        <td>{{ patient.prenom }}</td>
+                        <td>{{ patient.region }}</td>
+                        <td>{{ patient.numTel }}</td>
+                        <td>{{ patient.dateNaissance | date: 'dd/MM/yyyy' }}</td>
+                        <td>{{ patient.profession }}</td>
+                        <td>{{ patient.couvertureSocial }}</td>
+                        <td>{{ patient.gender }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<button class='menuToggle'>&#9776;</button>
+<div class="menu">
+    <ul>
+      <li>
+          <div class="card" style="width:200px; background-color: #23ad9b;">
+              <div id="userimg" style="width:150px;">
+              <img [src]="'assets/img/admin.png'" alt="Card image" style="width:100%">
+              </div>
+              <div style="margin-left: auto; margin-right: auto;"  class="card-body">
+                <h4 style="font-weight: bolder;" class="card-title"><b>{{name}}</b></h4>
+              </div>
+            </div>
+      </li>  
+      <li>
+        <a><i class="fa fa-plus" aria-hidden="true"></i><label [routerLink]="['/addDoctor']" style="cursor: pointer;">&nbsp; Add Doctor</label></a>
+      </li>
+      <li>
+        <a><i class="fa fa-check" aria-hidden="true"></i><label [routerLink]="['/approvedoctors']" style="cursor: pointer;">&nbsp; Approve Doctors</label></a>
+      </li>
+      <li>
+        <a><i class="fa fa-user-md" aria-hidden="true"></i><label [routerLink]="['/doctorlist']" style="cursor: pointer;">&nbsp; Doctor List</label></a>
+      </li>
+      <li>
+        <a><i class="fa fa-user" aria-hidden="true"></i><label [routerLink]="['/userlist']" style="cursor: pointer;">&nbsp; Users</label></a>
+      </li>
+      <li>
+        <a><i class="fa fa-user-o" aria-hidden="true"></i><label [routerLink]="['/patientlist']" style="cursor: pointer;">&nbsp; Patients</label></a>
+      </li>
+      <!-- <li>
+        <div class="card" style="width:200px; background-color: #23ad9b;">
+            <div id="userimg" style="width:150px;">
+              <img *ngIf="gender === 'male' || gender === 'Male'" class="card-img-top" [src]="'assets/img/maledoctor.png'" alt="Card image" style="width:100%">
+              <img *ngIf="gender === 'female' || gender === 'Female'" class="card-img-top" [src]="'assets/img/femaledoctor.png'" alt="Card image" style="width:100%">
+            </div>
+            <div style="margin-left: auto; margin-right: auto;"  class="card-body">
+              <h4 style="font-weight: bold;" class="card-title"><b>{{name}}</b></h4>
+            </div>
+        </div>
+    </li>   -->
+    <li>
+      <a><i class="fa fa-edit" aria-hidden="true"></i><label [routerLink]="['/editdoctorprofile']" style="cursor: pointer;">&nbsp; Edit Profile</label></a>
+    </li>
+    <li>
+      <a><i class="fa fa-check" aria-hidden="true"></i><label [routerLink]="['/approvalstatus']" style="cursor: pointer;">&nbsp; Approval status</label></a>
+    </li>
+    <li>
+      <a><i class="fa fa-clock-o" aria-hidden="true"></i><label [routerLink]="['/scheduleslots']" style="cursor: pointer;">&nbsp; Your schedule</label></a>
+    </li>
+    <li>
+      <a><i class="fa fa-user-md" aria-hidden="true"></i><label [routerLink]="['/doctorlist']" style="cursor: pointer;">&nbsp; Doctor List</label></a>
+    </li>
+    <li>
+      <a><i class="fa fa-user-o" aria-hidden="true"></i><label [routerLink]="['/patientlist']" style="cursor: pointer;">&nbsp; Patients</label></a>
+    </li>
+    <li>
+      <a><i class="fa fa-calendar" aria-hidden="true"></i><label [routerLink]="['/appointments']" style="cursor: pointer;">&nbsp; Appointments</label></a>
+    </li>
+    <li>
+      <a><i class="fa fa-sticky-note-o" aria-hidden="true"></i><label [routerLink]="['/addprescription']" style="cursor: pointer;">&nbsp; Add Prescriptions</label></a>
+    </li>
+    </ul>
+  </div>

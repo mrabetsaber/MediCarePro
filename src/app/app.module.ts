@@ -33,6 +33,20 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { RouterModule, Routes } from '@angular/router';
 import { SidebarModule } from './sidebar/sidebar.module';
 import { NavbarModule } from './shared/navbar/navbar.module';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule,  } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AddpatientComponent } from './services/addpatient/addpatient.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { AddappointementComponent } from './components/addappointement/addappointement.component';
+import { MatIconModule } from '@angular/material/icon';
+import { CustomDateInputComponent } from './custom-date-input/custom-date-input.component';
+import { RemoveTimePipe  } from './custom-date-input/custom-date-input.component';
 
 const appRoutes: Routes = [
   // Define your routes here
@@ -63,6 +77,11 @@ const appRoutes: Routes = [
     AddprescriptionComponent,
     PrescriptionlistComponent,
     WelcomepageComponent,
+    CustomDateInputComponent,
+    AddpatientComponent,
+    SidebarComponent,
+    AddappointementComponent,
+    RemoveTimePipe 
   ],
   imports: [
     BrowserModule,
@@ -72,6 +91,18 @@ const appRoutes: Routes = [
     NgxPaginationModule,
     SidebarModule,
     NavbarModule,
+    MatDatepickerModule,
+    MatNativeDateModule ,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatTableModule,
+    MatFormFieldModule,
+    NgxPaginationModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    
     RouterModule.forRoot(appRoutes)
     // MDBBootstrapModule.forRoot()
   ],
