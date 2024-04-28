@@ -1,4 +1,5 @@
 import { Patient } from 'src/app/models/patient';
+import { Operation } from 'src/app/models/operation';
 export class Appointment 
 {
     patientname : string = '';
@@ -13,7 +14,8 @@ export class Appointment
     slot : string = '';
     appointmentstatus : string = 'false';
     admissionstatus : string = 'false';
-    patient:Patient=new Patient();
-
+    // patient:Patient=new Patient();
+    operations:Operation[]=[];
+    dateCreation: Date = new Date();
     constructor() {}
 }

@@ -34,6 +34,9 @@ export class PatientServiceService {
     return this._http.post<any>(`${NAV_URL}/patient/verifyPatient`, patient);
   }
   
- 
+  savePatient(doctor : Patient) : Observable<any>
+  {
+      return this._http.post<any>(`${NAV_URL}/patient/addPatient`,doctor)
+  }
 
 }

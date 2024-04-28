@@ -125,3 +125,15 @@ transition: background-color 1s ease-out;
   font-size: 25px;
   color: white;
 }
+.example-sidenav-content {
+  /* display: flex; */
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  padding: 40px;
+  width: 200px;
+  height: 64px;
+}

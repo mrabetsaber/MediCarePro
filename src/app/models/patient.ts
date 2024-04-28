@@ -1,3 +1,5 @@
+import { Appointment } from 'src/app/models/appointment';
+
 export class Patient {
     id:string='';
     nom : string = '';
@@ -10,6 +12,8 @@ export class Patient {
     gender : string = '';
     numDossier:string='';
     dateNaissanceFilter:string='';
+    appointments:Appointment[]=[];
+   
 
     constructor() {}
 }

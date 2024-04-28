@@ -1,6 +1,9 @@
-<app-header></app-header>
-
-<button class='menuToggle'>&#9776;</button>
+<app-header (toggleDrawerEvent)="drawer.toggle()"></app-header>
+<mat-drawer-container  class="example-container" autosize>
+  <mat-drawer  #drawer class="example-sidenav" mode="side" opened>
+      <app-sidebar ></app-sidebar>
+  </mat-drawer>
+<!-- <button class='menuToggle'>&#9776;</button>
 <div class="menu">
   <ul>
     <li>
@@ -36,7 +39,7 @@
       <a><i class="fa fa-sticky-note-o" aria-hidden="true"></i><label [routerLink]="['/addprescription']" style="cursor: pointer;">&nbsp; Add Prescriptions</label></a>
     </li>
   </ul>
-</div>
+</div> -->
 
 <div class="container">
   <div class="row">
@@ -64,6 +67,6 @@
       </div>     
   </div>
 </div>
-
+</mat-drawer-container>
 <br><br><br><br><br><br>
 <app-footer></app-footer>

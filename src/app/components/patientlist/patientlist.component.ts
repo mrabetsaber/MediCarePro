@@ -60,6 +60,20 @@ export class PatientlistComponent implements OnInit {
   }
 
   fetchPatients(): void {
+    if (this.filterValue && this.filterValue.dateNaissance) {
+      const date = new Date(this.filterValue.dateNaissance);
+      const year = date.getFullYear();
+      const month = ('0' + (date.getMonth() + 1)).slice(-2); // Add leading zero if needed
+      const day = ('0' + date.getDate()).slice(-2); // Add leading zero if needed
+      
+      const formattedDate = `${year}-${month}-${day}`;
+      
+      this.filterValue.dateNaissanceFilter=formattedDate;
+    } else {
+      
+    }
+
+
     this.patients = this._service.searchPatients(this.filterValue);
   }
   clearForm(): void {
@@ -74,7 +88,8 @@ export class PatientlistComponent implements OnInit {
       couvertureSocial: '',
       gender: '',
       numDossier:'',
-      dateNaissanceFilter:''
+      dateNaissanceFilter:'',
+      appointments:[]
     };
     this.fetchPatients(); // Optionally, you can reload the patient list after clearing the form
   }

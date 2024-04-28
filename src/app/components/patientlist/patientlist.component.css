@@ -131,3 +131,15 @@ td {
 td {
   font-family: 'Roboto', 'Helvetica Neue', sans-serif; /* Use Roboto font or any other Material font */
 }
+.example-sidenav-content {
+  /* display: flex; */
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  padding: 40px;
+  width: 200px;
+  height: 64px;
+}

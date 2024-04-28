@@ -1,6 +1,11 @@
+<app-header (toggleDrawerEvent)="drawer.toggle()"></app-header>
+<mat-drawer-container  class="example-container" autosize>
+    <mat-drawer  #drawer class="example-sidenav" mode="side" opened>
+        <app-sidebar ></app-sidebar>
+    </mat-drawer>
 <div class="panel panel-primary">
   <div class="panel-heading">
-      <h2 style="text-align: center; font-family: 'Oswald', sans-serif;color: darkgreen; margin-top: 3%; margin-bottom: 3%;"> Patient List </h2>
+      <h2 style="text-align: center; font-family: 'Oswald', sans-serif;color: darkgreen; margin-top: 3%; margin-bottom: 3%;"> Liste des patients </h2>
   </div>
   <div class="panel-body">
     <form (ngSubmit)="fetchPatients()">
@@ -34,10 +39,10 @@
               </div>
               <div class="col-md-4">
                 <mat-form-field>
-                  <mat-label>Date Naissance</mat-label>
-                  <input matInput [matDatepicker]="picker" readonly>
+                  <mat-label for="dateNaissance">Date Naissance</mat-label>
+                  <input matInput [matDatepicker]="picker" readonly [(ngModel)]="filterValue.dateNaissance" name="filterValuedateNaissance" id="dateNaissance">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker (dateChange)="onDateChange($event)"></mat-datepicker>
+                  <mat-datepicker #picker ></mat-datepicker>
                 </mat-form-field>
                 
               </div>
@@ -78,7 +83,7 @@
   
   
       <br>
-      <h2 style="margin-top: 20px; margin-bottom: 10px;">Patient List</h2>
+      <h2 style="margin-top: 20px; margin-bottom: 10px;">Liste des patients</h2>
       <hr style="margin: 20px 0;">
 
       <div class="row">
@@ -114,3 +119,5 @@
     
   </div>
 </div>
+</mat-drawer-container>
+

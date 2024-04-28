@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output,EventEmitter,Input,HostListener   } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -11,7 +11,14 @@ export class HeaderComponent implements OnInit {
   loggedUser = '';
   currRole = '';
   title = '';
-
+  isFixed: boolean = false;
+  @Output() toggleDrawerEvent = new EventEmitter<void>();
+  @Input() showHeader: boolean = true;
+  toggleDrawer() {
+    if (this.showHeader) { // Only emit the event if the header is visible
+      this.toggleDrawerEvent.emit();
+    }
+  }
   constructor(private activatedRoute: ActivatedRoute, private _router : Router) { }
 
   ngOnInit(): void 
@@ -28,9 +35,11 @@ export class HeaderComponent implements OnInit {
     else if(this.currRole === "doctor"){
       this.title = "Doctor Dashboard";
     }
-    else if(this.currRole === "user"){
+    else if(this.currRole === "USER"){
       this.title = "User Dashboard";
     }
+   
+  
   }
 
   logout()
@@ -47,9 +56,13 @@ export class HeaderComponent implements OnInit {
     else if(this.currRole === "doctor"){
       this._router.navigate(['/doctordashboard']);
     }
-    else if(this.currRole === "user"){
+    else if(this.currRole === "USER"){
       this._router.navigate(['/userdashboard']);
     }
   }
-
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll(event: Event) {
+    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    this.isFixed = scrollPosition > 0;
+  }
 }
